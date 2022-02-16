@@ -4,18 +4,6 @@
 #include <solana_sdk.h>
 #include "./lib/add_2inputs_3D.h"
 
-GLOW_MEM_ALIGN(ADD_2INPUTS_3D_MEM_ALIGN)
-uint8_t constantWeight[ADD_2INPUTS_3D_CONSTANT_MEM_SIZE] = {
-#include "./lib/add_2inputs_3D.weights.bin"
-};
-
-GLOW_MEM_ALIGN(ADD_2INPUTS_3D_MEM_ALIGN)
-uint8_t mutableWeight[ADD_2INPUTS_3D_MUTABLE_MEM_SIZE];
-
-GLOW_MEM_ALIGN(ADD_2INPUTS_3D_MEM_ALIGN)
-uint8_t activations[ADD_2INPUTS_3D_ACTIVATIONS_MEM_SIZE];
-
-
 uint64_t exec_onnx(SolParameters *params) {
 
   if (params->ka_num < 1) {
