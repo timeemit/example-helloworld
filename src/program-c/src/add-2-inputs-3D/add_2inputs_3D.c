@@ -4,11 +4,6 @@
 #include <solana_sdk.h>
 #include "add_2inputs_3D.h"
 
-GLOW_MEM_ALIGN(ADD_2INPUTS_3D_MEM_ALIGN)
-static uint8_t constantWeight[ADD_2INPUTS_3D_CONSTANT_MEM_SIZE] = {
-  #include "./add_2inputs_3D.weights.txt"
-};
-
 uint64_t exec_onnx(SolParameters *params) {
 
   if (params->ka_num < 1) {
@@ -25,20 +20,9 @@ uint64_t exec_onnx(SolParameters *params) {
     return ERROR_INCORRECT_PROGRAM_ID;
   }
 
-  GLOW_MEM_ALIGN(ADD_2INPUTS_3D_MEM_ALIGN)
-  uint8_t mutableWeight[ADD_2INPUTS_3D_MUTABLE_MEM_SIZE];
-
-  GLOW_MEM_ALIGN(ADD_2INPUTS_3D_MEM_ALIGN)
-  uint8_t activations[ADD_2INPUTS_3D_ACTIVATIONS_MEM_SIZE];
-
-  uint8_t *xAddr = GLOW_GET_ADDR(mutableWeight, ADD_2INPUTS_3D_X);
-  uint8_t *yAddr = GLOW_GET_ADDR(mutableWeight, ADD_2INPUTS_3D_Y);
-  uint8_t *zAddr = GLOW_GET_ADDR(mutableWeight, ADD_2INPUTS_3D_Z);
-
   float x[8] = {3.85, 4.3, 4.75, 5.2, 5.65, 6.1, 6.55, 7.};
   float y[8] = {2.85, 3.3, 3.75, 4.2, 4.65, 5.1, 5.55, 6.};
-  sol_log_array((uint8_t *) x, 8);
-  sol_log_array((uint8_t *) y, 8);
+
   sol_memcpy(xAddr, x, 8 * sizeof(float));
   sol_memcpy(yAddr, y, 8 * sizeof(float));
 

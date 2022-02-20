@@ -1,10 +1,10 @@
 // Bundle API auto-generated header file. Do not edit!
 // Glow Tools version: 2022-02-15 (5241e3c8c) ()
 
-#ifndef _GLOW_BUNDLE_ADD_2INPUTS_3D_H
-#define _GLOW_BUNDLE_ADD_2INPUTS_3D_H
+#ifndef _GLOW_BUNDLE_DCGAN_TRAINED_DYNAMIC_H
+#define _GLOW_BUNDLE_DCGAN_TRAINED_DYNAMIC_H
 
-#include <stdint.h>
+// #include <stdint.h>
 
 // ---------------------------------------------------------------
 //                       Common definitions
@@ -40,7 +40,7 @@ struct BundleConfig {
   // Number of symbols in the symbol table.
   uint64_t numSymbols;
   // Symbol table.
-  const SymbolTableEntry *symbolTable;
+  const struct SymbolTableEntry *symbolTable;
 };
 
 #endif
@@ -48,28 +48,22 @@ struct BundleConfig {
 // ---------------------------------------------------------------
 //                          Bundle API
 // ---------------------------------------------------------------
-// Model name: "add_2inputs_3D"
-// Total data size: 192 (bytes)
-// Activations allocation efficiency: 0.0000
+// Model name: "DCGAN_trained_dynamic"
+// Total data size: 133742656 (bytes)
+// Activations allocation efficiency: 1.0000
 // Placeholders:
 //
-//   Name: "X"
-//   Type: float<1 x 2 x 4>
-//   Size: 8 (elements)
-//   Size: 32 (bytes)
+//   Name: "A0"
+//   Type: float<64 x 1 x 1 x 1>
+//   Size: 64 (elements)
+//   Size: 256 (bytes)
 //   Offset: 0 (bytes)
 //
-//   Name: "Y"
-//   Type: float<1 x 2 x 4>
-//   Size: 8 (elements)
-//   Size: 32 (bytes)
-//   Offset: 64 (bytes)
-//
-//   Name: "Z"
-//   Type: float<1 x 2 x 4>
-//   Size: 8 (elements)
-//   Size: 32 (bytes)
-//   Offset: 128 (bytes)
+//   Name: "A39"
+//   Type: float<64 x 3 x 64 x 64>
+//   Size: 786432 (elements)
+//   Size: 3145728 (bytes)
+//   Offset: 256 (bytes)
 //
 // NOTE: Placeholders are allocated within the "mutableWeight"
 // buffer and are identified using an offset relative to base.
@@ -79,11 +73,11 @@ extern "C" {
 #endif
 
 // Bundle memory configuration (memory layout).
-extern BundleConfig add_2inputs_3D_config;
+extern struct BundleConfig DCGAN_trained_dynamic_config;
 
 // Bundle entry point (inference function). Returns 0
 // for correct execution or some error code otherwise.
-int add_2inputs_3D(uint8_t *constantWeight, uint8_t *mutableWeight, uint8_t *activations);
+int DCGAN_trained_dynamic(uint8_t *constantWeight, uint8_t *mutableWeight, uint8_t *activations);
 
 #ifdef __cplusplus
 }
