@@ -1,10 +1,10 @@
 // Bundle API auto-generated header file. Do not edit!
 // Glow Tools version: 2022-02-15 (5241e3c8c) ()
 
-#ifndef _GLOW_BUNDLE_ADD_2INPUTS_3D_H
-#define _GLOW_BUNDLE_ADD_2INPUTS_3D_H
+#ifndef _GLOW_BUNDLE_ADD_2INPUTS_3D_STATIC_H
+#define _GLOW_BUNDLE_ADD_2INPUTS_3D_STATIC_H
 
-#include <stdint.h>
+// #include <stdint.h>
 
 // ---------------------------------------------------------------
 //                       Common definitions
@@ -15,40 +15,21 @@
 // Glow bundle error code for correct execution.
 #define GLOW_SUCCESS 0
 
-// Type describing a symbol table entry of a generated bundle.
-struct SymbolTableEntry {
-  // Name of a variable.
-  const char *name;
-  // Offset of the variable inside the memory area.
-  uint64_t offset;
-  // The number of elements inside this variable.
-  uint64_t size;
-  // Variable kind: 1 if it is a mutable variable, 0 otherwise.
-  char kind;
-};
-
-// Type describing the config of a generated bundle.
-struct BundleConfig {
-  // Size of the constant weight variables memory area.
-  uint64_t constantWeightVarsMemSize;
-  // Size of the mutable weight variables memory area.
-  uint64_t mutableWeightVarsMemSize;
-  // Size of the activations memory area.
-  uint64_t activationsMemSize;
-  // Alignment to be used for weights and activations.
-  uint64_t alignment;
-  // Number of symbols in the symbol table.
-  uint64_t numSymbols;
-  // Symbol table.
-  const SymbolTableEntry *symbolTable;
-};
-
 #endif
+
+// Memory alignment definition with given alignment size
+// for static allocation of memory.
+#define GLOW_MEM_ALIGN(size)  __attribute__((aligned(size)))
+
+// Macro function to get the absolute address of a
+// placeholder using the base address of the mutable
+// weight buffer and placeholder offset definition.
+#define GLOW_GET_ADDR(mutableBaseAddr, placeholderOff)  (((uint8_t*)(mutableBaseAddr)) + placeholderOff)
 
 // ---------------------------------------------------------------
 //                          Bundle API
 // ---------------------------------------------------------------
-// Model name: "add_2inputs_3D"
+// Model name: "add_2inputs_3D_static"
 // Total data size: 192 (bytes)
 // Activations allocation efficiency: 0.0000
 // Placeholders:
@@ -78,12 +59,22 @@ struct BundleConfig {
 extern "C" {
 #endif
 
-// Bundle memory configuration (memory layout).
-extern BundleConfig add_2inputs_3D_config;
+// Placeholder address offsets within mutable buffer (bytes).
+#define ADD_2INPUTS_3D_STATIC_X  0
+#define ADD_2INPUTS_3D_STATIC_Y  64
+#define ADD_2INPUTS_3D_STATIC_Z  128
+
+// Memory sizes (bytes).
+#define ADD_2INPUTS_3D_STATIC_CONSTANT_MEM_SIZE     0
+#define ADD_2INPUTS_3D_STATIC_MUTABLE_MEM_SIZE      192
+#define ADD_2INPUTS_3D_STATIC_ACTIVATIONS_MEM_SIZE  0
+
+// Memory alignment (bytes).
+#define ADD_2INPUTS_3D_STATIC_MEM_ALIGN  64
 
 // Bundle entry point (inference function). Returns 0
 // for correct execution or some error code otherwise.
-int add_2inputs_3D(uint8_t *constantWeight, uint8_t *mutableWeight, uint8_t *activations);
+int add_2inputs_3D_static(uint8_t *constantWeight, uint8_t *mutableWeight, uint8_t *activations);
 
 #ifdef __cplusplus
 }
