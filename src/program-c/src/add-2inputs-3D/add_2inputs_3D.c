@@ -31,8 +31,8 @@ const SymbolTableEntry *getMutableWeightVar(const BundleConfig *config, const ch
     sol_log("No mutableWeightVar found");
     return NULL;
   }
-  if (mutableWeightVar->kind != 0) {
-    sol_log("mutableWeightVar kind is nonzero");
+  if (mutableWeightVar->kind == 0) {
+    sol_log("mutableWeightVar kind is immutable");
     return NULL;
   }
   return mutableWeightVar;
