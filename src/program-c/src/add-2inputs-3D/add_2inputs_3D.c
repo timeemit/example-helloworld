@@ -7,7 +7,7 @@
 #include "add-2inputs-3D-static/add_2inputs_3D_static.h"
 
 
-GLOW_MEM_ALIGN(ADD_2INPUTS_3D_STATIC_MEM_ALIGN);
+GLOW_MEM_ALIGN(ADD_2INPUTS_3D_STATIC_MEM_ALIGN)
 const static uint8_t constantWeight[ADD_2INPUTS_3D_STATIC_CONSTANT_MEM_SIZE] = {
   #include "add-2inputs-3D-static/add_2inputs_3D_static.weights.bin"
 };
