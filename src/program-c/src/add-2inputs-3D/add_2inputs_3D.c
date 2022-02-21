@@ -69,11 +69,11 @@ uint8_t *allocateMutableWeightVars(struct BumpAllocator *heap, const BundleConfi
   return weights;
 }
 
-// float *dumpInferenceResults(const BundleConfig *config, uint8_t *mutableWeightVars) {
-//   const SymbolTableEntry &outputWeights = getMutableWeightVar(config, "Z");
-//   float *results = (float *)(mutableWeightVars + outputWeights.offset);
-//   return results;
-// }
+float *getInferenceResults(const BundleConfig *config, uint8_t *mutableWeightVars) {
+  const SymbolTableEntry *outputWeights = getMutableWeightVar(config, "Z");
+  float *results = (float *)(mutableWeightVars + outputWeights->offset);
+  return results;
+}
 
 uint8_t *initMutableWeightVars(struct BumpAllocator *heap, const BundleConfig *config) {
   uint8_t *mutableWeightVarsAddr = allocateMutableWeightVars(heap, config);
@@ -121,6 +121,14 @@ uint64_t exec_onnx(SolParameters *params) {
   if (errCode != GLOW_SUCCESS) {
     sol_log("Error running bundle: error code");
   }
+  
+  float *z = getInferenceResults(&add_2inputs_3D_dynamic_config, mutableWeightVarsAddr);
+  float z_total = 0;
+  for (int i = 0; i < 8; i++) {
+    z_total += z[i];
+  }
+  // (3.85 + 4.3 + 4.75 + 5.2 + 5.65 + 6.1 + 6.55 + 7) * 2 - 8 == 78.8, or 0x4e
+  sol_log_64(0, 0, 0, 0, (int)z_total);
   
   return SUCCESS;
 }
