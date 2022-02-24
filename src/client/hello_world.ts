@@ -48,13 +48,13 @@ const PROGRAM_PATH = path.resolve(__dirname, '../../dist/program');
  *   - `npm run build:program-c`
  *   - `npm run build:program-rust`
  */
-const PROGRAM_SO_PATH = path.join(PROGRAM_PATH, 'add-2inputs-3D.so');
+const PROGRAM_SO_PATH = path.join(PROGRAM_PATH, 'DCGAN.so');
 
 /**
  * Path to the keypair of the deployed program.
- * This file is created when running `solana program deploy dist/program/add-2inputs-3D.so`
+ * This file is created when running `solana program deploy dist/program/DCGAN.so`
  */
-const PROGRAM_KEYPAIR_PATH = path.join(PROGRAM_PATH, 'add-2inputs-3D-keypair.json');
+const PROGRAM_KEYPAIR_PATH = path.join(PROGRAM_PATH, 'DCGAN-keypair.json');
 
 /**
  * The state of a greeting account managed by the hello world program
@@ -141,7 +141,7 @@ export async function checkProgram(): Promise<void> {
   } catch (err) {
     const errMsg = (err as Error).message;
     throw new Error(
-      `Failed to read program keypair at '${PROGRAM_KEYPAIR_PATH}' due to error: ${errMsg}. Program may need to be deployed with \`solana program deploy dist/program/add-2inputs-3D.so\``,
+      `Failed to read program keypair at '${PROGRAM_KEYPAIR_PATH}' due to error: ${errMsg}. Program may need to be deployed with \`solana program deploy dist/program/DCGAN.so\``,
     );
   }
 
@@ -150,7 +150,7 @@ export async function checkProgram(): Promise<void> {
   if (programInfo === null) {
     if (fs.existsSync(PROGRAM_SO_PATH)) {
       throw new Error(
-        'Program needs to be deployed with `solana program deploy dist/program/add-2inputs-3D.so`',
+        'Program needs to be deployed with `solana program deploy dist/program/DCGAN.so`',
       );
     } else {
       throw new Error('Program needs to be built and deployed');
