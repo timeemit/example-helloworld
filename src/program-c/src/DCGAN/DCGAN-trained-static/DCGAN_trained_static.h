@@ -29,7 +29,7 @@
 //                          Bundle API
 // ---------------------------------------------------------------
 // Model name: "DCGAN_trained_static"
-// Total data size: 1458432 (bytes)
+// Total data size: 440576 (bytes)
 // Activations allocation efficiency: 1.0000
 // Placeholders:
 //
@@ -39,10 +39,10 @@
 //   Size: 400 (bytes)
 //   Offset: 0 (bytes)
 //
-//   Name: "A21"
-//   Type: float<1 x 3 x 16 x 16>
-//   Size: 768 (elements)
-//   Size: 3072 (bytes)
+//   Name: "A12"
+//   Type: float<1 x 3 x 8 x 8>
+//   Size: 192 (elements)
+//   Size: 768 (bytes)
 //   Offset: 448 (bytes)
 //
 // NOTE: Placeholders are allocated within the "mutableWeight"
@@ -54,12 +54,12 @@ extern "C" {
 
 // Placeholder address offsets within mutable buffer (bytes).
 #define DCGAN_TRAINED_STATIC_A0   0
-#define DCGAN_TRAINED_STATIC_A21  448
+#define DCGAN_TRAINED_STATIC_A12  448
 
 // Memory sizes (bytes).
-#define DCGAN_TRAINED_STATIC_CONSTANT_MEM_SIZE     1430336
-#define DCGAN_TRAINED_STATIC_MUTABLE_MEM_SIZE      3520
-#define DCGAN_TRAINED_STATIC_ACTIVATIONS_MEM_SIZE  24576
+#define DCGAN_TRAINED_STATIC_CONSTANT_MEM_SIZE     434496
+#define DCGAN_TRAINED_STATIC_MUTABLE_MEM_SIZE      1216
+#define DCGAN_TRAINED_STATIC_ACTIVATIONS_MEM_SIZE  4864
 
 // Memory alignment (bytes).
 #define DCGAN_TRAINED_STATIC_MEM_ALIGN  64

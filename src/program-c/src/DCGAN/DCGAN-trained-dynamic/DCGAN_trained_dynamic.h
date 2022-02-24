@@ -48,7 +48,7 @@ typedef struct BundleConfig {
 //                          Bundle API
 // ---------------------------------------------------------------
 // Model name: "DCGAN_trained_dynamic"
-// Total data size: 1458432 (bytes)
+// Total data size: 440576 (bytes)
 // Activations allocation efficiency: 1.0000
 // Placeholders:
 //
@@ -58,10 +58,10 @@ typedef struct BundleConfig {
 //   Size: 400 (bytes)
 //   Offset: 0 (bytes)
 //
-//   Name: "A21"
-//   Type: float<1 x 3 x 16 x 16>
-//   Size: 768 (elements)
-//   Size: 3072 (bytes)
+//   Name: "A12"
+//   Type: float<1 x 3 x 8 x 8>
+//   Size: 192 (elements)
+//   Size: 768 (bytes)
 //   Offset: 448 (bytes)
 //
 // NOTE: Placeholders are allocated within the "mutableWeight"
