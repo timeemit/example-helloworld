@@ -199,7 +199,27 @@ export async function checkProgram(): Promise<void> {
  * Say hello
  */
 export async function sayHello(): Promise<void> {
+  const web3 = require("@solana/web3.js");
+  const {struct, u8, u32, ns64} = require("@solana/buffer-layout");
+  const {Buffer} = require('buffer');
+  const programKeypair = await createKeypairFromFile(PROGRAM_KEYPAIR_PATH);
+
   console.log('Saying hello to', greetedPubkey.toBase58());
+
+  let params = { instruction: 0, units: 1000001 };
+  let allocateStruct = struct([
+    u8('instruction'),
+    u32('units'),
+  ]);
+
+  let data = Buffer.alloc(allocateStruct.span);
+  allocateStruct.encode(params, data);
+
+  const allocate = new web3.TransactionInstruction({
+    keys: [{pubkey: programId, isSigner: true, isWritable: true}],
+    programId: 'ComputeBudget111111111111111111111111111111',
+    data,
+  });
   const instruction = new TransactionInstruction({
     keys: [{pubkey: greetedPubkey, isSigner: false, isWritable: true}],
     programId,
@@ -207,8 +227,8 @@ export async function sayHello(): Promise<void> {
   });
   await sendAndConfirmTransaction(
     connection,
-    new Transaction().add(instruction),
-    [payer],
+    new Transaction().add(allocate).add(instruction),
+    [payer, programKeypair],
   );
 }
 
