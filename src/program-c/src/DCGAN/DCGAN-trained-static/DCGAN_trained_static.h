@@ -14,6 +14,7 @@
 
 // Glow bundle error code for correct execution.
 #define GLOW_SUCCESS 0
+
 #endif
 
 // Memory alignment definition with given alignment size
@@ -29,21 +30,21 @@
 //                          Bundle API
 // ---------------------------------------------------------------
 // Model name: "DCGAN_trained_static"
-// Total data size: 440576 (bytes)
+// Total data size: 25216 (bytes)
 // Activations allocation efficiency: 1.0000
 // Placeholders:
 //
 //   Name: "A0"
-//   Type: float<1 x 100 x 1 x 1>
-//   Size: 100 (elements)
-//   Size: 400 (bytes)
+//   Type: float<1 x 1 x 1 x 1>
+//   Size: 1 (elements)
+//   Size: 4 (bytes)
 //   Offset: 0 (bytes)
 //
 //   Name: "A12"
-//   Type: float<1 x 3 x 8 x 8>
-//   Size: 192 (elements)
-//   Size: 768 (bytes)
-//   Offset: 448 (bytes)
+//   Type: float<1 x 1 x 8 x 8>
+//   Size: 64 (elements)
+//   Size: 256 (bytes)
+//   Offset: 64 (bytes)
 //
 // NOTE: Placeholders are allocated within the "mutableWeight"
 // buffer and are identified using an offset relative to base.
@@ -54,12 +55,12 @@ extern "C" {
 
 // Placeholder address offsets within mutable buffer (bytes).
 #define DCGAN_TRAINED_STATIC_A0   0
-#define DCGAN_TRAINED_STATIC_A12  448
+#define DCGAN_TRAINED_STATIC_A12  64
 
 // Memory sizes (bytes).
-#define DCGAN_TRAINED_STATIC_CONSTANT_MEM_SIZE     434496
-#define DCGAN_TRAINED_STATIC_MUTABLE_MEM_SIZE      1216
-#define DCGAN_TRAINED_STATIC_ACTIVATIONS_MEM_SIZE  4864
+#define DCGAN_TRAINED_STATIC_CONSTANT_MEM_SIZE     20800
+#define DCGAN_TRAINED_STATIC_MUTABLE_MEM_SIZE      320
+#define DCGAN_TRAINED_STATIC_ACTIVATIONS_MEM_SIZE  4096
 
 // Memory alignment (bytes).
 #define DCGAN_TRAINED_STATIC_MEM_ALIGN  64
