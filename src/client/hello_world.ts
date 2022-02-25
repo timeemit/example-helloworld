@@ -206,10 +206,11 @@ export async function sayHello(): Promise<void> {
 
   console.log('Saying hello to', greetedPubkey.toBase58());
 
-  let params = { instruction: 0, units: 1000000 };
+  let params = { instruction: 0, units: 1400000, additional_fee: 1 };
   let allocateStruct = struct([
     u8('instruction'),
     u32('units'),
+    u32('additional_fee'),
   ]);
 
   let data = Buffer.alloc(allocateStruct.span);
