@@ -1,5 +1,5 @@
 // Bundle API auto-generated header file. Do not edit!
-// Glow Tools version: 2022-02-15 (5241e3c8c) ()
+// Glow Tools version: 2022-02-25 (4a8350448) ()
 
 #ifndef _GLOW_BUNDLE_DCGAN_TRAINED_DYNAMIC_H
 #define _GLOW_BUNDLE_DCGAN_TRAINED_DYNAMIC_H
