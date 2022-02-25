@@ -129,7 +129,7 @@ uint64_t exec_onnx(SolParameters *params) {
   
   float *a21 = getInferenceResults(&DCGAN_trained_dynamic_config, mutableWeightVarsAddr);
   float a21_total = 0;
-  for (int i = 0; i < 16 * 16; i++) {
+  for (int i = 0; i < 8 * 8; i++) {
     a21_total += a21[i];
   }
   sol_log_64(0, 0, 0, 0, (int)a21_total);
