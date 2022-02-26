@@ -17,6 +17,10 @@ import * as borsh from 'borsh';
 
 import {getPayer, getRpcUrl, createKeypairFromFile} from './utils';
 
+const web3 = require("@solana/web3.js");
+const {struct, u8, u32, f32, ns64} = require("@solana/buffer-layout");
+const {Buffer} = require('buffer');
+
 /**
  * Connection to the network
  */
@@ -56,32 +60,14 @@ const PROGRAM_SO_PATH = path.join(PROGRAM_PATH, 'DCGAN.so');
  */
 const PROGRAM_KEYPAIR_PATH = path.join(PROGRAM_PATH, 'DCGAN-keypair.json');
 
-/**
- * The state of a greeting account managed by the hello world program
- */
-class GreetingAccount {
-  counter = 0;
-  constructor(fields: {counter: number} | undefined = undefined) {
-    if (fields) {
-      this.counter = fields.counter;
-    }
-  }
-}
-
-/**
- * Borsh schema definition for greeting accounts
- */
-const GreetingSchema = new Map([
-  [GreetingAccount, {kind: 'struct', fields: [['counter', 'u32']]}],
+const GreetingsAccount = { counter: 0};
+const GreetingsSchema = struct([
+  f32('counter'),
 ]);
 
-/**
- * The expected size of each greeting account.
- */
-const GREETING_SIZE = borsh.serialize(
-  GreetingSchema,
-  new GreetingAccount(),
-).length;
+const greeting = Buffer.alloc(GreetingsSchema.span);
+GreetingsSchema.encode(GreetingsAccount, greeting);
+const GREETING_SIZE = greeting.length;
 
 /**
  * Establish a connection to the cluster
@@ -199,14 +185,10 @@ export async function checkProgram(): Promise<void> {
  * Say hello
  */
 export async function sayHello(): Promise<void> {
-  const web3 = require("@solana/web3.js");
-  const {struct, u8, u32, ns64} = require("@solana/buffer-layout");
-  const {Buffer} = require('buffer');
   const programKeypair = await createKeypairFromFile(PROGRAM_KEYPAIR_PATH);
-
   console.log('Saying hello to', greetedPubkey.toBase58());
 
-  let params = { instruction: 0, units: 140000000, additional_fee: 1 };
+  let params = { instruction: 0, units: 1400000000, additional_fee: 1 };
   let allocateStruct = struct([
     u8('instruction'),
     u32('units'),
@@ -224,7 +206,7 @@ export async function sayHello(): Promise<void> {
   const instruction = new TransactionInstruction({
     keys: [{pubkey: greetedPubkey, isSigner: false, isWritable: true}],
     programId,
-    data: Buffer.alloc(0), // All instructions are hellos
+    data: Buffer.alloc(4), // Just enough to store a float
   });
   await sendAndConfirmTransaction(
     connection,
@@ -241,11 +223,8 @@ export async function reportGreetings(): Promise<void> {
   if (accountInfo === null) {
     throw 'Error: cannot find the greeted account';
   }
-  const greeting = borsh.deserialize(
-    GreetingSchema,
-    GreetingAccount,
-    accountInfo.data,
-  );
+  const greeting = GreetingsSchema.decode(accountInfo.data);
+
   console.log(
     greetedPubkey.toBase58(),
     'has been greeted',
