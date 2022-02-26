@@ -63,10 +63,10 @@ const static uint8_t constantWeight[DCGAN_TRAINED_STATIC_CONSTANT_MEM_SIZE] = {
 #define HEAP_START_ADDRESS_ (uint64_t)0x300000000
 #define HEAP_LENGTH_ (uint64_t)(32 * 1024)
 
-const int NZ = 100;
-const int IMG_SIZE = 16;
-const char *INPUT_VAR = "A0";
-const char *OUTPUT_VAR = "A21";
+#define NZ 1
+static const int IMG_SIZE = 8;
+static const char *INPUT_VAR = "A0";
+static const char *OUTPUT_VAR = "A12";
 
 
 const SymbolTableEntry *getWeightVar(const BundleConfig *config, const char *name) {
