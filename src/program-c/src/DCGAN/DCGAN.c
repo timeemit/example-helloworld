@@ -3,9 +3,57 @@
  */
 #include <solana_sdk.h>
 #include <string.h>
+
+#ifndef _GLOW_BUNDLE_COMMON_DEFS
+#define _GLOW_BUNDLE_COMMON_DEFS
+
+// Glow bundle error code for correct execution.
+#define GLOW_SUCCESS 0
+
+// Glow DYNAMIC API
+
+// Type describing a symbol table entry of a generated bundle.
+typedef struct SymbolTableEntry {
+  // Name of a variable.
+  const char *name;
+  // Offset of the variable inside the memory area.
+  uint64_t offset;
+  // The number of elements inside this variable.
+  uint64_t size;
+  // Variable kind: 1 if it is a mutable variable, 0 otherwise.
+  char kind;
+} SymbolTableEntry;
+
+// Type describing the config of a generated bundle.
+typedef struct BundleConfig {
+  // Size of the constant weight variables memory area.
+  uint64_t constantWeightVarsMemSize;
+  // Size of the mutable weight variables memory area.
+  uint64_t mutableWeightVarsMemSize;
+  // Size of the activations memory area.
+  uint64_t activationsMemSize;
+  // Alignment to be used for weights and activations.
+  uint64_t alignment;
+  // Number of symbols in the symbol table.
+  uint64_t numSymbols;
+  // Symbol table.
+  const SymbolTableEntry *symbolTable;
+} BundleConfig;
+
+// Glow STATIC API
+
+// Memory alignment definition with given alignment size
+// for static allocation of memory.
+#define GLOW_MEM_ALIGN(size)  __attribute__((aligned(size)))
+
+// Macro function to get the absolute address of a
+// placeholder using the base address of the mutable
+// weight buffer and placeholder offset definition.
+#define GLOW_GET_ADDR(mutableBaseAddr, placeholderOff)  (((uint8_t*)(mutableBaseAddr)) + placeholderOff)
+#endif
+
 #include "DCGAN-trained-dynamic/DCGAN_trained_dynamic.h"
 #include "DCGAN-trained-static/DCGAN_trained_static.h"
-
 
 GLOW_MEM_ALIGN(DCGAN_TRAINED_STATIC_MEM_ALIGN)
 const static uint8_t constantWeight[DCGAN_TRAINED_STATIC_CONSTANT_MEM_SIZE] = {
