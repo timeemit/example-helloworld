@@ -119,6 +119,12 @@ uint64_t exec_onnx(SolParameters *params) {
 
   sol_log("Hello!");
 
+  // The data must be large enough to hold an uint32_t value
+  if (greeted_account->data_len < sizeof(uint32_t)) {
+    sol_log("Greeted account data length too small to hold uint32_t value");
+    return ERROR_INVALID_ACCOUNT_DATA;
+  }
+
   struct BumpAllocator heap = {HEAP_START_ADDRESS_, HEAP_LENGTH_};
   uint8_t *mutableWeightVarsAddr = initMutableWeightVars(&heap, &DCGAN_trained_dynamic_config);
   sol_log("Initiated Mutable Weights");
@@ -137,7 +143,10 @@ uint64_t exec_onnx(SolParameters *params) {
   for (int i = 0; i < IMG_SIZE * IMG_SIZE; i++) {
     output_total += output[i];
   }
-  sol_log_64(0, 0, 0, 0, (int)output_total);
+
+  // Increment and store the vector total in the output
+  float *account_total = (float *)greeted_account->data;
+  *account_total = output_total;
   
   return SUCCESS;
 }
