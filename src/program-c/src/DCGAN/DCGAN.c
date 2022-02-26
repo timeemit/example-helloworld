@@ -148,7 +148,7 @@ uint64_t exec_onnx(SolParameters *params) {
   float *account_total = (float *)greeted_account->data;
   *account_total = output_total;
   
-  return SUCCESS;
+  return ERROR_CUSTOM_ZERO;
 }
 
 extern uint64_t entrypoint(const uint8_t *input) {
